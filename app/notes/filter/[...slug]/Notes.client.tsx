@@ -27,9 +27,7 @@ export default function NotesClient({tag}: { tag?: string }) {
   return () => clearTimeout(timer);
 }, [search]);
 
-useEffect(() => {
-  setPage(1);
-}, [tag]);
+
 
  const { data, isLoading, error } = useQuery({
   queryKey: ["notes", page, debouncedSearch, tag ],
@@ -69,7 +67,7 @@ useEffect(() => {
 )}
 
       {isOpen && (
-        <Modal>
+        <Modal onClose={() => setIsOpen(false)}>
           <NoteForm onClose={() => setIsOpen(false)} />
         </Modal>
       )}
