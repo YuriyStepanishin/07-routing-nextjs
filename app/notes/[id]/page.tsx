@@ -1,4 +1,4 @@
-import NotePreview from "@/components/NotePreview/NotePreview";
+import NoteDetails from "./NoteDetails.client";
 
 export default async function NotePage({
   params,
@@ -7,5 +7,5 @@ export default async function NotePage({
 }) {
   const { id } = await params;
 
-  return <NotePreview id={id} />;
+  return <NoteDetails id={id} />;
 }
