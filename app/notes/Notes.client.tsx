@@ -13,13 +13,13 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 
 import css from "./NotesPage.module.css";
 
-export default function NotesClient() {
+export default function NotesClient({tag}: { tag?: string }) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+ useEffect(() => {
   const timer = setTimeout(() => {
     setDebouncedSearch(search);
   }, 500);
@@ -27,9 +27,13 @@ export default function NotesClient() {
   return () => clearTimeout(timer);
 }, [search]);
 
+useEffect(() => {
+  setPage(1);
+}, [tag]);
+
  const { data, isLoading, error } = useQuery({
-  queryKey: ["notes", page, debouncedSearch],
-  queryFn: () => fetchNotes(page, debouncedSearch),
+  queryKey: ["notes", page, debouncedSearch, tag ],
+  queryFn: () => fetchNotes(page, debouncedSearch, tag),
   placeholderData: (previousData) => previousData,
 });
 
@@ -65,7 +69,7 @@ export default function NotesClient() {
 )}
 
       {isOpen && (
-        <Modal onClose={() => setIsOpen(false)}>
+        <Modal>
           <NoteForm onClose={() => setIsOpen(false)} />
         </Modal>
       )}

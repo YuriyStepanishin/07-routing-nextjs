@@ -15,14 +15,24 @@ export interface FetchNotesResponse {
 export const fetchNotes = async (
   page: number,
   search?: string,
+  tag?: string
 ): Promise<FetchNotesResponse> => {
-  const params: { page: number; perPage: number; search?: string } = {
+  const params: {
+    page: number;
+    perPage: number;
+    search?: string;
+    tag?: string;
+  } = {
     page,
     perPage: 12,
   };
 
   if (search && search.trim() !== "") {
     params.search = search;
+  }
+
+  if (tag && tag !== "all") {
+    params.tag = tag;
   }
 
   const response = await axios.get<FetchNotesResponse>("/notes", {
