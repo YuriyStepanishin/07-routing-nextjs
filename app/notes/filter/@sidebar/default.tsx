@@ -1,6 +1,6 @@
 import css from "./SidebarNotes.module.css";
 
-const tags = ["All notes", "Todo", "Work", "Personal", "Meeting", "Shopping"];
+const tags = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
 
 export default function DefaultSidebar() {
   return (
